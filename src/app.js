@@ -9,7 +9,7 @@ const redirect = (res, url) => debugMode ? res.send(url) : res.redirect(301, url
 // Redirect homepage to homepage
 app.get('/', (req, res) => redirect(res, redirectRoot))
 
-// Redirect style guide to sttyle guide
+// Redirect style guide to style guide
 app.get('/hmrc-content-guide/hmrc-style-guide', (req, res) =>
   redirect(res, `${redirectRoot}/hmrc-content-style-guide/`))
 
@@ -19,11 +19,10 @@ app.get('/design-library', (req, res) =>
 
 // Redirect patterns using like for like path unless override specified
 app.get('/design-library/:pattern', (req, res) => {
-  const requestedRoute = req.params.pattern
-  const overridePath = Object.keys(pathOverrides).find(oldRoute => oldRoute === requestedRoute)
-  const newRoute = pathOverrides[overridePath] || requestedRoute
-  
-  redirect(res, `${redirectRoot}/hmrc-design-patterns/${newRoute}`)
+  const requestedPattern = req.params.pattern
+  const overridePath = Object.keys(pathOverrides).find(oldPath => oldPath === requestedPattern)
+  const newPath = pathOverrides[overridePath] || requestedPattern
+  redirect(res, `${redirectRoot}/hmrc-design-patterns/${newPath}`)
 })
 
 // Catch any unknown URLs and forward to homepage
