@@ -1,0 +1,14 @@
+{
+  "name": "design-system-prototype-redirects",
+  "version": "1.0.0",
+  "description": "An express app to 301 redirect old design system prototype pages to the new design system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
