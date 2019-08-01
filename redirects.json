@@ -1,0 +1,15 @@
+{
+  "strict": {
+    "/": "/",
+    "/hmrc-content-guide/hmrc-style-guide": "/hmrc-content-style-guide/",
+    "/design-library": "/hmrc-design-patterns/",
+    "/design-library/ask-user-consent": "/hmrc-design-patterns/ask-for-consent/",
+    "/design-library/open-in-a-new-window": "/hmrc-design-patterns/new-tab-link/"
+  },
+  "wildcards": {
+    "*": "/"
+  },
+  "patterns": {
+    "/design-library/:pattern": "/hmrc-design-patterns/"
+  }
+}
