@@ -1,0 +1,21 @@
+{
+  "strict": {
+    "/": "/",
+    "/hmrc-content-guide/hmrc-style-guide": "/hmrc-content-style-guide/",
+    "/design-library": "/hmrc-design-patterns/",
+    "/design-library/ask-user-consent": "/hmrc-design-patterns/ask-the-user-for-their-consent/",
+    "/design-library/open-in-a-new-window": "/hmrc-design-patterns/open-links-in-a-new-window-or-tab/",
+    "/design-library/problem-with-service": "/hmrc-design-patterns/there-is-a-problem-with-the-service/",
+    "/design-library/utr": "/hmrc-design-patterns/unique-taxpayer-reference/",
+    "/design-library/backlog": "/hmrc-design-patterns/hmrc-design-patterns-backlog/",
+    "/design-library/using-code-in-prototypes": "/hmrc-design-patterns/install-hmrc-frontend-in-your-prototype/",
+    "/design-library/updating-hmrc-frontend-in-prototypes": "/hmrc-design-patterns/updating-hmrc-frontend-in-your-prototype/",
+    "/design-library/using-code-in-prototypes/older-prototype-kits": "/hmrc-design-patterns/install-hmrc-frontend-in-your-prototype/install-hrmc-frontend-in-an-old-version-of-the-govuk-prototype-kit/"
+  },
+  "wildcards": {
+    "*": "/"
+  },
+  "patterns": {
+    "/design-library/:pattern": "/hmrc-design-patterns/"
+  }
+}

@@ -4,55 +4,50 @@ const app = require('./app')
 
 jest.mock('../constants', () => ({
   redirectRoot: 'http://foo.bar',
-  pathOverrides: {
-    oldPath: 'newPath'
+  redirectType: 301
+}))
+
+jest.mock('../redirects.json', () => ({
+  "strict": {
+    "/oldPath": "/newPath/",
+    "/patternPath/overiddenPage": "/newPath/newPage"
+  },
+  "wildcards": {
+    "*": "/"
+  },
+  "patterns": {
+    "/patternPath/:pattern": "/newPath/"
   }
 }))
 
 describe('App', () => {
 
-  describe('/', () => {
+  describe('strict redirects', () => {
     test('It should return 301 redirect to the correct url', () =>
       request(app)
-        .get('/')
+        .get('/oldPath')
         .expect(301)
-        .expect('Location', 'http://foo.bar'))
-  })
-
-  describe('/hmrc-content-guide/hmrc-style-guide', () => {
-    test('It should return 301 redirect to the correct url', () =>
-      request(app)
-        .get('/hmrc-content-guide/hmrc-style-guide')
-        .expect(301)
-        .expect('Location', 'http://foo.bar/hmrc-content-style-guide/'))
+        .expect('Location', 'http://foo.bar/newPath/'))
     
     test('It should be agnostic of trailing slash', () =>
       request(app)
-        .get('/hmrc-content-guide/hmrc-style-guide/')
+        .get('/oldPath/')
         .expect(301)
-        .expect('Location', 'http://foo.bar/hmrc-content-style-guide/'))
+        .expect('Location', 'http://foo.bar/newPath/'))
   })
 
-  describe('/design-library', () => {
-    test('It should return 301 redirect to the correct url', () =>
-      request(app)
-        .get('/design-library')
-        .expect(301)
-        .expect('Location', 'http://foo.bar/hmrc-design-patterns/'))
-  })
-
-  describe('/design-library/:pattern', () => {
+  describe('pattern redirects', () => {
     test('It should return 301 redirect to the same pattern on the new path', () =>
       request(app)
-        .get('/design-library/foo')
+        .get('/patternPath/page')
         .expect(301)
-        .expect('Location', 'http://foo.bar/hmrc-design-patterns/foo'))
+        .expect('Location', 'http://foo.bar/newPath/page/'))
         
-    test('It should return 301 redirect to the overriden pattern on the new path if an override is found', () =>
+    test('It should ignore the pattern matcher if a match is found in strict', () =>
       request(app)
-        .get('/design-library/oldPath')
+        .get('/patternPath/overiddenPage')
         .expect(301)
-        .expect('Location', 'http://foo.bar/hmrc-design-patterns/newPath'))
+        .expect('Location', 'http://foo.bar/newPath/newPage'))
   })
 
   describe('Wildcard', () => {
@@ -60,7 +55,7 @@ describe('App', () => {
       request(app)
         .get('/not-a-path')
         .expect(301)
-        .expect('Location', 'http://foo.bar'))
+        .expect('Location', 'http://foo.bar/'))
   })
 
 })
